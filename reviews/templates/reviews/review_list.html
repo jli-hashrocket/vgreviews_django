@@ -17,7 +17,7 @@
     <td>{{ review.score }}</td>
     <td>{{ review.likes }}</td>
     <td>{{ review.pub_date }}</td>
-    <td><a href="{% url 'reviews:edit' review.id %}">Edit</a></td>
+    <td><a href="{% url 'reviews:edit' review.id %}">Edit</a> | <a href="{% url 'reviews:delete' review.id %}">Delete</a></td>
   </tr>
 {% endfor%}
 </table>

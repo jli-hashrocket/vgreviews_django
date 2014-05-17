@@ -42,3 +42,7 @@ class ReviewUpdate(UpdateView):
     success_url = reverse_lazy('reviews:index')
     form_class = ReviewForm
 
+class ReviewDelete(DeleteView):
+    model = Review
+    success_url = reverse_lazy('reviews:index')
+
