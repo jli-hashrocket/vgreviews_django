@@ -1,0 +1,26 @@
+{% load repl %}
+{% extends "reviews/base.html" %}
+
+{% block content %}
+<h1>{{ review }} </h1>
+
+<div class="summary">
+  {{ review.summary }}
+</div>
+<div class="pros">
+  <h2>Pros</h2>
+  <ul>
+      <li>{{ review.pros }}</li>
+  </ul>
+</div>
+<div class="cons">
+  <h2>Cons</h2>
+  <ul>
+      <li>{{ review.cons }}</li>
+  </ul>
+</div>
+<div class="score">
+  <h2>Score</h2>
+  {{ review.score }}
+</div>
+{% endblock %}

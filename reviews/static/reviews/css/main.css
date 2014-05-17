@@ -1,0 +1,29 @@
+body{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1em;
+}
+
+nav li{
+  text-decoration:none;
+}
+
+#main-nav li {
+  display:inline-block;
+}
+
+#main-nav li:hover > ul {
+  display:block;
+  position: absolute;
+  background-color: #fff;
+}
+
+.sub-nav li {
+  display: list-item !important;
+}
+
+.sub-nav {
+  display:none;
+}
+
+
+
