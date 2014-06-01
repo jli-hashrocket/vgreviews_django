@@ -4,8 +4,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^', include('reviews.urls')),
-    url(r'^reviews/', include('reviews.urls', namespace="reviews")),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^', include('apps.urls')),
+    url(r'^reviews/', include('apps.reviews.urls', namespace="reviews")),
 )

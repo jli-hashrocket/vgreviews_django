@@ -13,11 +13,12 @@
     <div id="main">
       <nav>
         <ul id="main-nav">
-          <li>Home</li>
+          <li><a href="/">Home</a></li>
+          {% if user.is_authenticated %}
           <li class="reviews">
             Reviews
             <ul class="sub-nav">
-              <li><a href="{% url 'review_list' %}">All</a></li>
+              <li><a href="{% url 'reviews:review_list' %}">All</a></li>
               <li>PS4</li>
               <li>Xbox One</li>
               <li>Wii U</li>
@@ -26,6 +27,7 @@
               <li>Nintendo DS</li>
             </ul>
           </li>
+          {% endif %}
         </ul>
       </nav>
       <div class="container">

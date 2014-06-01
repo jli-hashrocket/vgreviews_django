@@ -37,11 +37,22 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'template_repl',
-    'registration',
-    'reviews',
+    'apps.registration',
+    'apps.reviews',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jeff.li029@gmail.com'
+EMAIL_HOST_PASSWORD = 'creature'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'vgreviews@vgreviews.com'
+
+LOGIN_REDIRECT_URL = '/reviews'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

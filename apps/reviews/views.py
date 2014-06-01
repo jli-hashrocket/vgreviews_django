@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from reviews.models import Review
-from reviews.forms import ReviewForm
+from apps.reviews.models import Review
+from apps.reviews.forms import ReviewForm
 from django.utils import timezone
+from django.contrib.auth import authenticate
 
 
 import pdb
