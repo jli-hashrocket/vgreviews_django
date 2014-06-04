@@ -11,6 +11,11 @@
   </head>
   <body>
     <div id="main">
+      {% if user.is_authenticated %}
+        <div class="guest-action"><a class="action-btn" href="/accounts/logout">Log Out</a></div>
+      {% else %}
+        <div class="guest-action"><a class="action-btn" href="/accounts/login">Login</a> <a class = "action-btn" href="/accounts/register">Register</a></div>
+      {% endif %}
       <nav>
         <ul id="main-nav">
           <li><a href="/">Home</a></li>
