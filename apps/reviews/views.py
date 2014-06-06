@@ -35,15 +35,15 @@ class ReviewList(ListView):
 
 class ReviewCreate(CreateView):
     model = Review
-    success_url = reverse_lazy('reviews:index')
+    success_url = reverse_lazy('reviews:review_list')
     form_class = ReviewForm
 
 class ReviewUpdate(UpdateView):
     model = Review
-    success_url = reverse_lazy('reviews:index')
+    success_url = reverse_lazy('reviews:review_list')
     form_class = ReviewForm
 
 class ReviewDelete(DeleteView):
     model = Review
-    success_url = reverse_lazy('reviews:index')
+    success_url = reverse_lazy('reviews:review_list')
 
