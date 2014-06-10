@@ -1,15 +1,15 @@
 {% extends "reviews/base.html" %}
-{% load repl %}
 {% block content %}
+
 <h1>Reviews</h1>
 <a href="{% url 'reviews:new' %}">Add Review</a>
-
 <table border=0, cellpadding=5, cellspacing=0>
   <tr>
     <th>Game</th>
     <th>Score</th>
     <th>Likes</th>
     <th>Published Date</th>
+    <th>Author</th>
   </tr>
 {% for review in object_list %}
   <tr>
@@ -17,6 +17,7 @@
     <td>{{ review.score }}</td>
     <td>{{ review.likes }}</td>
     <td>{{ review.pub_date }}</td>
+    <td>{{ review.author }}</td>
     <td><a href="{% url 'reviews:edit' review.id %}">Edit</a> | <a href="{% url 'reviews:delete' review.id %}">Delete</a></td>
   </tr>
 {% endfor%}

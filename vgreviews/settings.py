@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'template_repl',
+    'south',
     'apps.registration',
     'apps.reviews',
 )

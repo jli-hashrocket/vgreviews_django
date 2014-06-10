@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -13,6 +14,10 @@ class Review(models.Model):
     score = models.FloatField(blank=False, validators=[MinValueValidator(0), MaxValueValidator(10)])
     likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(User, null=True, blank=True)
+
+    class Meta:
+        ordering = ["-pub_date"]
 
     def __unicode__(self):
         return self.title

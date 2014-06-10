@@ -7,6 +7,7 @@ from apps.reviews.models import Review
 from apps.reviews.forms import ReviewForm
 from django.utils import timezone
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 
 import pdb
@@ -38,10 +39,19 @@ class ReviewCreate(CreateView):
     success_url = reverse_lazy('reviews:review_list')
     form_class = ReviewForm
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(ReviewCreate, self).form_valid(form)
+
 class ReviewUpdate(UpdateView):
     model = Review
     success_url = reverse_lazy('reviews:review_list')
     form_class = ReviewForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(ReviewUpdate, self).form_valid(form)
+
 
 class ReviewDelete(DeleteView):
     model = Review
