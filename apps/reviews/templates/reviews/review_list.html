@@ -5,20 +5,31 @@
 <a href="{% url 'reviews:new' %}">Add Review</a>
 <table border=0, cellpadding=5, cellspacing=0>
   <tr>
+    <th>&nbsp;</th>
     <th>Game</th>
     <th>Score</th>
     <th>Likes</th>
     <th>Published Date</th>
     <th>Author</th>
+    <th>Actions</th>
   </tr>
 {% for review in object_list %}
   <tr>
+    <td>
+      {% if user == review.author %}
+      <button class="btn-active">Like</button>
+      {% else %}
+      <button class="btn-inactive">Like</button>
+      {% endif %}
+    </td>
     <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
     <td>{{ review.score }}</td>
     <td>{{ review.likes }}</td>
     <td>{{ review.pub_date }}</td>
     <td>{{ review.author }}</td>
+    {% if user == review.author %}
     <td><a href="{% url 'reviews:edit' review.id %}">Edit</a> | <a href="{% url 'reviews:delete' review.id %}">Delete</a></td>
+    {% endif %}
   </tr>
 {% endfor%}
 </table>
