@@ -17,9 +17,9 @@
   <tr>
     <td>
       {% if user == review.author %}
-      <button class="btn-active">Like</button>
-      {% else %}
       <button class="btn-inactive">Like</button>
+      {% else %}
+      <button class="btn-active">Like</button>
       {% endif %}
     </td>
     <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
