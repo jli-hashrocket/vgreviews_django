@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -57,3 +57,8 @@ class ReviewDelete(DeleteView):
     model = Review
     success_url = reverse_lazy('reviews:review_list')
 
+def like(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    review.likes += 1
+    review.save()
+    return HttpResponseRedirect(reverse_lazy('reviews:review_list'))

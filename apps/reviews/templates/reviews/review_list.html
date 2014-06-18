@@ -17,9 +17,11 @@
   <tr>
     <td>
       {% if user == review.author %}
-      <button class="btn-inactive">Like</button>
+      <button class="btn inactive">Like</button>
       {% else %}
-      <button class="btn-active">Like</button>
+      <form action="{% url 'reviews:like' review.id %}" method="post">{% csrf_token %}
+      <input type="submit" class="btn active" value="Like" />
+      </form>
       {% endif %}
     </td>
     <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
