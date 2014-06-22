@@ -3,13 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from apps.reviews.models import Review
+from apps.reviews.models import *
+from django.db.models import F
 from apps.reviews.forms import ReviewForm
 from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-
-
 import pdb
 
 
@@ -58,7 +57,6 @@ class ReviewDelete(DeleteView):
     success_url = reverse_lazy('reviews:review_list')
 
 def like(request, pk):
-    review = get_object_or_404(Review, pk=pk)
-    review.likes += 1
-    review.save()
+    Like.objects.get_or_create(id=request.user.id, review_id=pk)
+    liked = Like.objects.filter(id=request.user.id, review_id=pk).update(total_likes = F('total_likes')+1)
     return HttpResponseRedirect(reverse_lazy('reviews:review_list'))

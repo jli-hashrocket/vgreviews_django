@@ -1,5 +1,6 @@
 {% extends "reviews/base.html" %}
 {% block content %}
+{% load repl %}
 
 <h1>Reviews</h1>
 <a href="{% url 'reviews:new' %}">Add Review</a>
@@ -9,11 +10,12 @@
     <th>Game</th>
     <th>Score</th>
     <th>Likes</th>
+    <th>Category</th>
     <th>Published Date</th>
     <th>Author</th>
     <th>Actions</th>
   </tr>
-{% for review in object_list %}
+{% for review in review_list %}
   <tr>
     <td>
       {% if user == review.author %}
@@ -26,13 +28,23 @@
     </td>
     <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
     <td>{{ review.score }}</td>
-    <td>{{ review.likes }}</td>
+    <td>
+      {% if review.like_set.all|length != 0 %}
+        {% for like in review.like_set.all %}
+          {{ like.total_likes }}
+        {% endfor %}
+      {% else %}
+        0
+      {% endif %}
+    </td>
+    <td>{{ review.categories.all|join:", "  }}
+    </td>
     <td>{{ review.pub_date }}</td>
     <td>{{ review.author }}</td>
     {% if user == review.author %}
     <td><a href="{% url 'reviews:edit' review.id %}">Edit</a> | <a href="{% url 'reviews:delete' review.id %}">Delete</a></td>
     {% endif %}
   </tr>
-{% endfor%}
+{% endfor %}
 </table>
 {% endblock %}
