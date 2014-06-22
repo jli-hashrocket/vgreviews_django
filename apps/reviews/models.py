@@ -30,6 +30,8 @@ class Like(models.Model):
     review = models.ForeignKey(Review)
     total_likes = models.IntegerField(default=0)
 
+    def get_absolute_url(self):
+        return reverse(edit, kwargs={'pk': self.pk})
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
