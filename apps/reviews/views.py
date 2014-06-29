@@ -7,6 +7,8 @@ from apps.reviews.models import *
 from django.db.models import F
 from apps.reviews.forms import ReviewForm
 from django.utils import timezone
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import pdb
@@ -71,9 +73,11 @@ def like(request, id):
             user_liked.total_likes -= 1
             user_liked.user.remove(request.user)
             user_liked.save()
+
         else:
             list(like)
             like[0].user.add(request.user)
             like[0].total_likes += 1
             like[0].save()
-    return HttpResponseRedirect(reverse_lazy('reviews:review_list'))
+
+    return redirect(reverse_lazy('reviews:review_list'))

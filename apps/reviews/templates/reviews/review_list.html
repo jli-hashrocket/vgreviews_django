@@ -22,7 +22,11 @@
       <button class="btn inactive">Like</button>
       {% else %}
       <form action="{% url 'reviews:like' review.id %}" method="post">{% csrf_token %}
-      <input type="submit" class="btn active" value="Like" />
+      {% if liked == True %}
+        <input type="submit" class="btn active" value="Unlike" />
+      {% else %}
+        <input type="submit" class="btn active" value="Like" />
+      {% endif %}
       </form>
       {% endif %}
     </td>
