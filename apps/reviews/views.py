@@ -33,6 +33,19 @@ class ReviewList(ListView):
     def get_context_data(self, **kwargs):
         context = super(ReviewList, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
+        """ Checks if user has liked any reviews. If the user has, then context['liked'] is true, else false. This
+        will get passed in to template so that the like button will turn into a unlike button and vice versa  """
+        try:
+            user_liked = Like.objects.get(user=user, review_id=self.request.GET['review_id'])
+        except:
+            user_liked = None
+
+        if user_liked:
+            liked = True
+        else:
+            liked = False
+        context['liked'] = liked
+
         return context
 
 class ReviewCreate(CreateView):
