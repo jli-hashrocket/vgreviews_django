@@ -5,8 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VGReviews{% block title%}{% endblock %}</title>
+    <script scr="{% static 'reviews/dajax/jquery.dajax.core.js' %}"></script>
     {% block stylesheets %}
-      <link href="{% static "reviews/css/main.css" %}" media="screen" rel="stylesheet" />
+      <link href="{% static 'reviews/css/main.css' %}" media="screen" rel="stylesheet" />
     {% endblock %}
   </head>
   <body>
@@ -43,5 +44,8 @@
         {% endblock%}
       </div>
     </div>
+    <script src="{% static 'reviews/js/lib/jquery-min.js' %}"></script>
+    <script src="{% static 'reviews/js/review.js' %}"></script>
+
   </body>
 </html>

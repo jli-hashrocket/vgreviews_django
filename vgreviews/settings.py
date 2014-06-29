@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'template_repl',
     'south',
+    'dajaxice',
+    'dajax',
     'apps.registration',
     'apps.reviews',
 )
@@ -95,5 +97,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+STATIC_ROOT = os.path.join('/Users/jli/Dropbox/launchacademy/django_apps/vgreviews/apps/reviews','static')
 STATIC_URL = '/static/'
