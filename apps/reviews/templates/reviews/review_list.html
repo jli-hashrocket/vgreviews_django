@@ -21,18 +21,12 @@
       {% if user == review.author %}
       <button class="btn inactive">Like</button>
       {% else %}
-      <form action="{% url 'reviews:like' review.id %}" method="post">{% csrf_token %}
-      {% if liked == True %}
-        <input type="submit" class="btn active" value="Unlike" />
-      {% else %}
-        <input type="submit" class="btn active" value="Like" />
-      {% endif %}
-      </form>
+        <button type="button" class="btn like active" data-attr="{{ review.id }}">Like</button>
       {% endif %}
     </td>
     <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
     <td>{{ review.score }}</td>
-    <td>
+    <td id='review_{{review.id}}' class="likes">
       {% if review.like_set.all|length != 0 %}
         {% for like in review.like_set.all %}
           {{ like.total_likes }}

@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/$', views.ReviewDetail.as_view(), name='show'),
     url(r'^edit/(?P<pk>\d+)/$', views.ReviewUpdate.as_view(), name='edit'),
     url(r'^delete/(?P<pk>\d+)/$', views.ReviewDelete.as_view(), name='delete'),
-    url(r'^like/(?P<id>\d+)/$', views.like, name='like'),
+    url(r'^like$', views.like, name='like'),
 
 )
 

@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 import pdb
 
 
@@ -66,15 +67,14 @@ class ReviewUpdate(UpdateView):
         form.instance.author = self.request.user
         return super(ReviewUpdate, self).form_valid(form)
 
-
 class ReviewDelete(DeleteView):
     model = Review
     success_url = reverse_lazy('reviews:review_list')
 
-def like(request, id):
-    if request.method == 'POST':
+def like(request):
+    if request.method == 'GET':
         user = request.user
-        review = get_object_or_404(Review, id=id)
+        review = get_object_or_404(Review, id=request.GET['review_id'])
         like = Like.objects.get_or_create(review_id=review.id)
 
         try:
@@ -86,11 +86,13 @@ def like(request, id):
             user_liked.total_likes -= 1
             user_liked.user.remove(request.user)
             user_liked.save()
+            likes = user_liked.total_likes
 
         else:
             list(like)
             like[0].user.add(request.user)
             like[0].total_likes += 1
             like[0].save()
+            likes = like[0].total_likes
 
-    return redirect(reverse_lazy('reviews:review_list'))
+    return HttpResponse(likes)
