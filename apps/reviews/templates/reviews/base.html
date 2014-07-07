@@ -5,44 +5,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VGReviews{% block title%}{% endblock %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <script scr="{% static 'reviews/dajax/jquery.dajax.core.js' %}"></script>
     {% block stylesheets %}
       <link href="{% static 'reviews/css/main.css' %}" media="screen" rel="stylesheet" />
     {% endblock %}
   </head>
   <body>
-    <div id="main">
-      {% if user.is_authenticated %}
-        <div class="guest-action">
-          <a class="action-btn" href="/accounts/logout">Log Out</a>
-          <span class="welcome">Welcome, {{ user }}</span>
-        </div>
-      {% else %}
-        <div class="guest-action"><a class="action-btn" href="/accounts/login">Login</a> <a class = "action-btn" href="/accounts/register">Register</a></div>
-      {% endif %}
-      <nav>
-        <ul id="main-nav">
-          <li><a href="/">Home</a></li>
-          {% if user.is_authenticated %}
-          <li class="reviews">
-            Reviews
-            <ul class="sub-nav">
-              <li><a href="{% url 'reviews:review_list' %}">All</a></li>
-              <li>PS4</li>
-              <li>Xbox One</li>
-              <li>Wii U</li>
-              <li>PC</li>
-              <li>PS Vita</li>
-              <li>Nintendo DS</li>
-            </ul>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-      <div class="container">
-        {% block content %}
-        {% endblock%}
+    {% if user.is_authenticated %}
+      <div class="guest-action">
+        <a class="action-btn" href="/accounts/logout">Log Out</a>
+        <span class="welcome">Welcome, {{ user }}</span>
       </div>
+    {% else %}
+      <div class="guest-action">
+        <a class="action-btn" href="/accounts/login">Login</a> <a class = "action-btn" href="/accounts/register">Register</a>
+      </div>
+    {% endif %}
+
+    <div id="header">
+      <div class="container">
+        <span class="logo">VGReviews</span>
+        <nav>
+          <ul id="main-nav">
+            <li><a href="/">Home</a></li>
+            {% if user.is_authenticated %}
+            <li class="reviews">
+              Reviews
+              <ul class="sub-nav">
+                <li><a href="{% url 'reviews:review_list' %}">All</a></li>
+                <li>PS4</li>
+                <li>Xbox One</li>
+                <li>Wii U</li>
+                <li>PC</li>
+                <li>PS Vita</li>
+                <li>Nintendo DS</li>
+              </ul>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div id="main">
+      {% block content %}
+      {% endblock%}
     </div>
     <script src="{% static 'reviews/js/lib/jquery-min.js' %}"></script>
     <script src="{% static 'reviews/js/review.js' %}"></script>

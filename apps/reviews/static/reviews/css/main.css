@@ -1,21 +1,49 @@
 body{
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 1em;
+  margin: 0;
 }
 
-.container a {
+#header {
+  margin-top: 28px;
+  width: 100%;
+  background: #34d2af;
+  margin-left: 0;
+  padding: 5px 0;
+  color: #fff;
+}
+
+nav a {
+  color:#fff;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.logo {
+  display: block;
+  float: left;
+  font-size: 2.5em;
+  font-family: 'play', sans-serif;
+  margin-top: -5px;
+}
+ a {
   text-decoration: none;
-  color: #005749;
+  color: #E54E2C;
   transition: color 0.5s ease;
   -webkit-transition: color 0.5s ease;
 }
 
 .container a:hover{
-  color: #00AD91;
+  color: #046B54;
 }
 
 h1{
-  color: #006353;
+  color: #E54E2C;
+  font-size: 1.75em;
+  font-weight: 400;
 }
 
 .welcome {
@@ -23,10 +51,6 @@ h1{
   display: inline-block;
   margin: 5px 10px;
   float: right;
-}
-nav {
-  clear: both;
-  margin-top: 40px;
 }
 
 nav li{
@@ -59,7 +83,7 @@ nav {
 }
 
 #main-nav li:hover > ul {
-  background-color: #FF8940;
+  background-color: #046B54;
   display: block;
   margin: 10px 0;
   padding: 15px 0;
@@ -69,10 +93,14 @@ nav {
   z-index: 10;
 }
 
+#main-nav li:hover > ul li:hover a:hover{
+  color: #fff;
+}
+
 .guest-action {
   width: 100%;
   display: block;
-  background-color: #006353;
+  background-color: #E54E2C;
   position: absolute;
   top: 0;
   left: 0;
@@ -81,7 +109,6 @@ nav {
 .action-btn {
   display: block;
   color: #ffffff;
-  background-color: #34d2af;
   padding: 7px;
   text-align: center;
   float: right;
@@ -116,7 +143,7 @@ table {
 }
 
 th {
-  background-color: #00947C;
+  background-color: #E54E2C;
   color: #ffffff;
 }
 
