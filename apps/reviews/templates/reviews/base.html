@@ -13,7 +13,7 @@
     {% endblock %}
   </head>
   <body>
-    {% if user.is_authenticated %}
+    {% if user %}
       <div class="guest-action">
         <a class="action-btn" href="/accounts/logout">Log Out</a>
         <span class="welcome">Welcome, {{ user }}</span>
@@ -30,7 +30,6 @@
         <nav>
           <ul id="main-nav">
             <li><a href="/">Home</a></li>
-            {% if user.is_authenticated %}
             <li class="reviews">
               Reviews
               <ul class="sub-nav">
@@ -43,7 +42,6 @@
                 <li>Nintendo DS</li>
               </ul>
             </li>
-            {% endif %}
           </ul>
         </nav>
       </div>

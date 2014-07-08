@@ -3,29 +3,33 @@
 {% load repl %}
 
 <h1>Reviews</h1>
+{% if user.is_authenticated %}
 <a href="{% url 'reviews:new' %}">Add Review</a>
+{% endif %}
 <table border=0, cellpadding=5, cellspacing=0>
   <tr>
     <th>&nbsp;</th>
     <th>Game</th>
     <th>Score</th>
     <th>Likes</th>
-    <th>Category</th>
-    <th>Published Date</th>
-    <th>Author</th>
-    <th>Actions</th>
+    {% if user.is_authenticated %}<th>Actions</th>{% endif %}
   </tr>
 {% for review in review_list %}
   <tr>
     <td>
-      {% if user == review.author %}
+      {% if user == review.author or user.is_authenticated == False %}
       <button class="btn inactive">Like</button>
       {% else %}
         <button type="button" class="btn like active" data-attr="{{ review.id }}">Like</button>
       {% endif %}
     </td>
-    <td><a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a></td>
-    <td>{{ review.score }}</td>
+    <td>
+      <a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a><br/>
+      <span class="category">{{ review.categories.all|join:", "  }}</span><br/>
+      <span class="author">Reviewed by: {{ review.author }}</span> <br/>
+      <span class="published">Published: {{ review.pub_date }}</span>
+    </td>
+    <td class="score">{{ review.score }}</td>
     <td id='review_{{review.id}}' class="likes">
       {% if review.like_set.all|length != 0 %}
         {% for like in review.like_set.all %}
@@ -35,10 +39,6 @@
         0
       {% endif %}
     </td>
-    <td>{{ review.categories.all|join:", "  }}
-    </td>
-    <td>{{ review.pub_date }}</td>
-    <td>{{ review.author }}</td>
     {% if user == review.author %}
     <td><a href="{% url 'reviews:edit' review.id %}">Edit</a> | <a href="{% url 'reviews:delete' review.id %}">Delete</a></td>
     {% endif %}

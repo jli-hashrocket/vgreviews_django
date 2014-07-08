@@ -74,7 +74,7 @@ nav {
 }
 #main {
   width: 80%;
-  margin: auto;
+  margin: 0 auto 60px;
 }
 #main-nav li {
   display:inline-block;
@@ -149,4 +149,14 @@ th {
 
 td {
   padding:5px 10px;
+  line-height: 1.5em;
+}
+
+span.author, span.published {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.score {
+  font-size: 2em;
 }
