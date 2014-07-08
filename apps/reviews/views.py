@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import RequestContext, loader
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -11,8 +11,33 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 import pdb
+
+class UpdateIfCurrentAuthorMixin(object):
+    """
+    View mixin that makes sure the current author can
+    only edit their own content
+    """
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(UpdateView, self).dispatch(request, *args, **kwargs)
+
+        if self.object.author != request.user:
+            user = request.user
+            return render_to_response('reviews/permission_denied.html', { 'user': user })
+        return handler
+
+class DeleteIfCurrentAuthorMixin(object):
+    """
+    View mixin that makes sure the current author can
+    only delete their own content
+    """
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(DeleteView, self).dispatch(request, *args, **kwargs)
+
+        if self.object.author != request.user:
+            user = request.user
+            return render_to_response('reviews/permission_denied.html', { 'user': user })
+        return handler
 
 
 def index(request):
@@ -58,7 +83,7 @@ class ReviewCreate(CreateView):
         form.instance.author = self.request.user
         return super(ReviewCreate, self).form_valid(form)
 
-class ReviewUpdate(UpdateView):
+class ReviewUpdate(UpdateIfCurrentAuthorMixin, UpdateView):
     model = Review
     success_url = reverse_lazy('reviews:review_list')
     form_class = ReviewForm
@@ -67,9 +92,14 @@ class ReviewUpdate(UpdateView):
         form.instance.author = self.request.user
         return super(ReviewUpdate, self).form_valid(form)
 
-class ReviewDelete(DeleteView):
+class ReviewDelete(DeleteIfCurrentAuthorMixin, DeleteView):
     model = Review
     success_url = reverse_lazy('reviews:review_list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(ReviewDelete, self).form_valid(form)
+
 
 def like(request):
     if request.method == 'GET':
