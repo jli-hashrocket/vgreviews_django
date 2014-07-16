@@ -13,7 +13,7 @@
     {% endblock %}
   </head>
   <body>
-    {% if user %}
+    {% if user.is_authenticated %}
       <div class="guest-action">
         <a class="action-btn" href="/accounts/logout">Log Out</a>
         <span class="welcome">Welcome, {{ user }}</span>
