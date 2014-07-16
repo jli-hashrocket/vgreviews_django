@@ -41,7 +41,15 @@ class DeleteIfCurrentAuthorMixin(object):
 
 
 def index(request):
-    context = RequestContext(request, {})
+    recent_reviews = Review.objects.order_by('-pub_date')
+    most_liked = Like.objects.order_by('-total_likes')
+    if len(recent_reviews) > 10:
+        recent_reviews = Review.objects.order_by('pub_date')[10]
+
+    if len(most_liked) > 10:
+        most_liked = most_liked = Like.objects.order_by('total_likes')[10]
+
+    context = RequestContext(request, {'recent_reviews': recent_reviews, 'most_liked': most_liked })
     return render(request, 'reviews/index.html', context)
 
 class ReviewDetail(DetailView):
