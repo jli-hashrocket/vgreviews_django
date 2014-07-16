@@ -1,30 +1,33 @@
 {% extends "reviews/base.html" %}
 
 {% block content %}
-<h1>{{ review.title }} </h1>
+<div class="review_container">
+  <h1>{{ review.title }} </h1>
 
-<div class="summary">
-  <h2>Summary</h2>
-  {{ review.summary }}
+  <div>
+    <h2>Summary</h2>
+    {{ review.summary }}
+  </div>
+  <div>
+    <h2>Pros</h2>
+    <ul>
+      {% for pro in pros %}
+        <li>{{ pro }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h2>Cons</h2>
+    <ul>
+      {% for con in cons %}
+        <li>{{ con }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h2>Score</h2>
+    {{ review.score }}
+  </div>
 </div>
-<div class="pros">
-  <h2>Pros</h2>
-  <ul>
-    {% for pro in pros %}
-      <li>{{ pro }}</li>
-    {% endfor %}
-  </ul>
-</div>
-<div class="cons">
-  <h2>Cons</h2>
-  <ul>
-    {% for con in cons %}
-      <li>{{ con }}</li>
-    {% endfor %}
-  </ul>
-</div>
-<div class="score">
-  <h2>Score</h2>
-  {{ review.score }}
-</div>
+<a class="back" href="{% url 'reviews:review_list' %}">Back</a>
 {% endblock %}
