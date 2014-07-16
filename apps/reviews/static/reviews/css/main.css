@@ -74,7 +74,7 @@ nav {
 }
 #main {
   width: 80%;
-  margin: 0 auto 60px;
+  margin: 60px auto 60px;
 }
 #main-nav li {
   display:inline-block;
@@ -159,4 +159,13 @@ span.author, span.published {
 
 .score {
   font-size: 2em;
+  color: #34d2af;
+}
+
+.recent-reviews, .most_liked {
+  float: left;
+  margin: 40px 100px 0 0;
+  background-color: #efefef;
+  padding: 0 20px 20px 20px;
+  margin-top: 40px
 }
