@@ -38,8 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'template_repl',
     'south',
-    'dajaxice',
-    'dajax',
     'apps.registration',
     'apps.reviews',
 )
