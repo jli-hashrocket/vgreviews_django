@@ -109,6 +109,12 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'registration.registrationprofile':{
+            'Meta': {'object_name': 'RegistrationProfile'},
+             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+             'activation_key': ('django.db.models.fields.CharField',[], {'max_length': '200'})
+        },
         u'reviews.category': {
             'Meta': {'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
