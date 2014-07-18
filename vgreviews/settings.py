@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'template_repl',
     'south',
+    'registration',
     'apps.registration',
     'apps.reviews',
 )
