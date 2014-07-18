@@ -16,16 +16,60 @@ class Migration(SchemaMigration):
             ('pros', self.gf('django.db.models.fields.TextField')()),
             ('cons', self.gf('django.db.models.fields.TextField')()),
             ('score', self.gf('django.db.models.fields.FloatField')()),
-            ('likes', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('pub_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], blank=True)),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
         ))
         db.send_create_signal(u'reviews', ['Review'])
+
+        # Adding M2M table for field categories on 'Review'
+        m2m_table_name = db.shorten_name(u'reviews_review_categories')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('review', models.ForeignKey(orm[u'reviews.review'], null=False)),
+            ('category', models.ForeignKey(orm[u'reviews.category'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['review_id', 'category_id'])
+
+        # Adding model 'Like'
+        db.create_table(u'reviews_like', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('review', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reviews.Review'])),
+            ('total_likes', self.gf('django.db.models.fields.IntegerField')(default=0)),
+        ))
+        db.send_create_signal(u'reviews', ['Like'])
+
+        # Adding M2M table for field user on 'Like'
+        m2m_table_name = db.shorten_name(u'reviews_like_user')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('like', models.ForeignKey(orm[u'reviews.like'], null=False)),
+            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['like_id', 'user_id'])
+
+        # Adding model 'Category'
+        db.create_table(u'reviews_category', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
+        ))
+        db.send_create_signal(u'reviews', ['Category'])
 
 
     def backwards(self, orm):
         # Deleting model 'Review'
         db.delete_table(u'reviews_review')
+
+        # Removing M2M table for field categories on 'Review'
+        db.delete_table(db.shorten_name(u'reviews_review_categories'))
+
+        # Deleting model 'Like'
+        db.delete_table(u'reviews_like')
+
+        # Removing M2M table for field user on 'Like'
+        db.delete_table(db.shorten_name(u'reviews_like_user'))
+
+        # Deleting model 'Category'
+        db.delete_table(u'reviews_category')
 
 
     models = {
@@ -65,12 +109,24 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'reviews.category': {
+            'Meta': {'object_name': 'Category'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+        },
+        u'reviews.like': {
+            'Meta': {'object_name': 'Like'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'review': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['reviews.Review']"}),
+            'total_likes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'user': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'likes'", 'symmetrical': 'False', 'to': u"orm['auth.User']"})
+        },
         u'reviews.review': {
-            'Meta': {'object_name': 'Review'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'blank': 'True'}),
+            'Meta': {'ordering': "['-pub_date']", 'object_name': 'Review'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
+            'categories': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'reviews'", 'symmetrical': 'False', 'to': u"orm['reviews.Category']"}),
             'cons': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'likes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'pros': ('django.db.models.fields.TextField', [], {}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'score': ('django.db.models.fields.FloatField', [], {}),

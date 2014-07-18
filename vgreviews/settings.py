@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY=os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # DEBUG = True
 
 TEMPLATE_DEBUG = False
@@ -74,13 +74,13 @@ WSGI_APPLICATION = 'vgreviews.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-# DATABASES = {'default': {
-#                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#                 'NAME': 'vgreviews',
-#                 'HOST': '127.0.0.1'
-#                 }
-#             }
-DATABASES = {'default': dj_database_url.config(default='postgres://127.0.0.1')}
+DATABASES = {'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'vgreviews',
+                'HOST': '127.0.0.1'
+                }
+            }
+# DATABASES = {'default': dj_database_url.config(default='postgres://127.0.0.1')}
 
 
 # Internationalization
@@ -99,7 +99,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-# STATIC_ROOT = os.path.join('/Users/jli/Dropbox/launchacademy/django_apps/vgreviews/apps/reviews','static')
-STATIC_ROOT = os.path.join('vgreviews/apps/reviews','static')
+STATIC_ROOT = os.path.join('/Users/jli/Dropbox/launchacademy/django_apps/vgreviews/apps/reviews','static')
+# STATIC_ROOT = os.path.join('vgreviews/apps/reviews','static')
 
 STATIC_URL = '/static/'
