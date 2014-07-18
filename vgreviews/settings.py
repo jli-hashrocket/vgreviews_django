@@ -20,8 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY=os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 # DEBUG = True
-DEBUG = False
 
 TEMPLATE_DEBUG = False
 
@@ -51,9 +51,9 @@ ACCOUNT_ACTIVATION_DAYS = 7
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jeff.li029@gmail.com'
-EMAIL_HOST_PASSWORD = 'creature'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'vgreviews@vgreviews.com'
+DEFAULT_FROM_EMAIL = 'jeff.li029@gmail.com'
 
 LOGIN_REDIRECT_URL = '/reviews'
 
