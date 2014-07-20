@@ -13,6 +13,7 @@ class Review(models.Model):
     cons = models.TextField(blank=False)
     score = models.FloatField(blank=False, validators=[MinValueValidator(0), MaxValueValidator(10)])
     categories = models.ManyToManyField('Category', related_name="reviews")
+    consoles = models.ManyToManyField('Console', related_name="reviews")
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, null=True, blank=True)
 
@@ -41,3 +42,13 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse(edit, kwargs={'pk': self.pk})
+
+class Console(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse(edit, kwargs={'pk': self.pk})
+
