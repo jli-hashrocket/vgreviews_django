@@ -3,7 +3,8 @@
 {% block content %}
 <div class="review_container">
   <h1>{{ review.title }} </h1>
-
+  Category: {{ review.categories.all|join:", "  }}<br/>
+  Available on: {{ review.consoles.all|join:", "}}
   <div>
     <h2>Summary</h2>
     {{ review.summary }}

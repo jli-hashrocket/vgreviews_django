@@ -25,6 +25,7 @@
     <td>
       <a href="{% url 'reviews:show' review.id %}">{{ review.title }}</a><br/>
       <span class="category">{{ review.categories.all|join:", "  }}</span><br/>
+      <span class="console">Available on: {{ review.consoles.all|join:", "}}</span></br>
       <span class="author">Reviewed by: {{ review.author }}</span> <br/>
       <span class="published">Published: {{ review.pub_date }}</span>
     </td>

@@ -57,8 +57,8 @@ class ReviewDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ReviewDetail, self).get_context_data(**kwargs)
-        context['pros'] = context['review'].pros.split(', ')
-        context['cons'] = context['review'].cons.split(', ')
+        context['pros'] = context['review'].pros.split('\n')
+        context['cons'] = context['review'].cons.split('\n')
         return context
 
 class ReviewList(ListView):
