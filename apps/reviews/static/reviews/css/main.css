@@ -64,9 +64,9 @@ nav {
 .sub-nav li {
     display: list-item !important;
     list-style-type: none;
-    margin-left: 20px !important;
-    padding: 4px !important;
+    padding: 0 !important;
     text-align: left;
+    margin: 0 !important
 }
 
 .sub-nav {
@@ -94,11 +94,17 @@ nav {
   padding: 15px 0;
   position: absolute;
   text-align: left;
-  width: 125px;
   z-index: 10;
 }
 
-#main-nav li:hover > ul li:hover a:hover{
+#main-nav li:hover > ul li a {
+  transition: background-color 0.5s ease;
+  display: block;
+  padding: 7px 20px;
+}
+
+#main-nav li:hover > ul li a:hover{
+  background-color: #059676;
   color: #fff;
 }
 
