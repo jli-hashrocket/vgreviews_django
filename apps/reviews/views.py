@@ -134,3 +134,43 @@ def like(request):
             likes = like[0].total_likes
 
     return HttpResponse(likes)
+
+'''Review Lists for Consoles'''
+def PS4ReviewList(request):
+    ps4 = Console.objects.get(name='PS4')
+    review_list = ps4.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/ps4.html', context)
+
+def XboxOneReviewList(request):
+    xbox_one = Console.objects.get(name='Xbox One')
+    review_list = xbox_one.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/xbox-one.html', context)
+
+def WiiUReviewList(request):
+    wii_u = Console.objects.get(name='Nintendo Wii U')
+    review_list = wii_u.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/nintendo-wii-u.html', context)
+
+def DSReviewList(request):
+    ds = Console.objects.get(name='Nintendo DS')
+    review_list = ds.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/nintendo-ds.html', context)
+
+
+def PCReviewList(request):
+    pc = Console.objects.get(name='PC')
+    review_list = pc.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/pc.html', context)
+
+def PSVitaReviewList(request):
+    ps_vita = Console.objects.get(name='PS Vita')
+    review_list = ps_vita.reviews.all()
+    context = RequestContext(request, {'review_list': review_list })
+    return render(request, 'reviews/ps-vita.html', context)
+
+
